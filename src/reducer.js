@@ -1,13 +1,26 @@
-function changeState(state, action) {
-  switch (action.type) {
-    case "counter/increment":
-      return { count: state.count + 1 };
-    default:
-      return state;
-  }
+let initialState = { count: 2 };
+
+function reducer(state = initialState, action) {
+	const { type } = action;
+
+	switch (type) {
+		case 'increment':
+			return { count: state.count + 1 };
+		case 'decrement':
+			return { count: state.count - 1 };
+		default:
+			return state;
+	}
 }
 
-let state = { count: 0 };
-let action = { type: "counter/increment" };
+const render = () => {
+	document.body.textContent = initialState.count;
+};
 
-changeState(state, action);
+function dispatch(action) {
+	initialState = reducer(initialState, action);
+	render();
+}
+
+dispatch({ type: 'increment' });
+dispatch({ type: 'decrement' });
